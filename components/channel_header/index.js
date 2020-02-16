@@ -8,6 +8,7 @@ import {
     favoriteChannel,
     unfavoriteChannel,
     updateChannelNotifyProps,
+    getChannelStats
 } from 'mattermost-redux/actions/channels';
 import {getCustomEmojisInText} from 'mattermost-redux/actions/emojis';
 import {General} from 'mattermost-redux/constants';
@@ -79,7 +80,8 @@ function makeMapStateToProps() {
             pinnedPostsCount: stats.pinnedpost_count,
             hasMoreThanOneTeam,
             teammateNameDisplaySetting: getTeammateNameDisplaySetting(state),
-            currentRelativeTeamUrl: getCurrentRelativeTeamUrl(state)
+            currentRelativeTeamUrl: getCurrentRelativeTeamUrl(state),
+            pinnedPostsCounts: stats.pinnedpost_count
         };
     };
 }
@@ -98,6 +100,7 @@ const mapDispatchToProps = (dispatch) => ({
         goToLastViewedChannel,
         openModal,
         closeModal,
+        getChannelStats,
     }, dispatch),
 });
 

@@ -85,6 +85,7 @@ class ChannelHeader extends React.PureComponent {
         }).isRequired,
         teammateNameDisplaySetting: PropTypes.string.isRequired,
         currentRelativeTeamUrl: PropTypes.string.isRequired,
+        pinnedPostsCounts: PropTypes.number,
     };
 
     constructor(props) {

@@ -160,10 +160,20 @@ exports[`components/ChannelHeader should render active flagged posts 1`] = `
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -369,10 +379,20 @@ exports[`components/ChannelHeader should render active mentions posts 1`] = `
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -578,10 +598,20 @@ exports[`components/ChannelHeader should render active pinned posts 1`] = `
       buttonClass="style--none channel-header__icon wide active"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -727,10 +757,20 @@ exports[`components/ChannelHeader should render archived view 1`] = `
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -971,10 +1011,20 @@ exports[`components/ChannelHeader should render correct menu when muted 1`] = `
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -1186,10 +1236,20 @@ exports[`components/ChannelHeader should render properly when populated 1`] = `
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
@@ -1432,10 +1492,20 @@ exports[`components/ChannelHeader should render properly when populated with cha
       buttonClass="style--none channel-header__icon wide"
       buttonId="channelHeaderPinButton"
       iconComponent={
-        <PinIcon
-          aria-hidden="true"
-          className="icon icon__pin"
-        />
+        <div
+          className="flex-child"
+        >
+          <span
+            className="icon__text"
+            id="channelMemberCountText"
+          >
+            -
+          </span>
+          <PinIcon
+            aria-hidden="true"
+            className="icon icon__pin"
+          />
+        </div>
       }
       onClick={[Function]}
       tooltipKey="pinnedPosts"
