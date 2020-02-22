@@ -165,7 +165,7 @@ exports[`components/ChannelHeader should render active flagged posts 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -384,7 +384,7 @@ exports[`components/ChannelHeader should render active mentions posts 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -603,7 +603,7 @@ exports[`components/ChannelHeader should render active pinned posts 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -762,7 +762,7 @@ exports[`components/ChannelHeader should render archived view 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -1016,7 +1016,7 @@ exports[`components/ChannelHeader should render correct menu when muted 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -1241,7 +1241,7 @@ exports[`components/ChannelHeader should render properly when populated 1`] = `
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
@@ -1497,7 +1497,7 @@ exports[`components/ChannelHeader should render properly when populated with cha
         >
           <span
             className="icon__text"
-            id="channelMemberCountText"
+            id="channelPinnedPostCountText"
           >
             -
           </span>
