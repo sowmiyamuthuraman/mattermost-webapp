@@ -19,7 +19,8 @@ import {
     isCurrentChannelReadOnly,
     getCurrentChannelStats,
 } from 'mattermost-redux/selectors/entities/channels';
-import {getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
+import {getTeammateNameDisplaySetting} from 'mattermost-redux/selectors/entities/preferences';
+import {getCurrentRelativeTeamUrl, getCurrentTeamId} from 'mattermost-redux/selectors/entities/teams';
 import {
     getCurrentUser,
     getUser,
@@ -74,6 +75,8 @@ function makeMapStateToProps() {
             isQuickSwitcherOpen: isModalOpen(state, ModalIdentifiers.QUICK_SWITCH),
             hasGuests: stats.guest_count > 0,
             pinnedPostsCount: stats.pinnedpost_count
+            teammateNameDisplaySetting: getTeammateNameDisplaySetting(state),
+            currentRelativeTeamUrl: getCurrentRelativeTeamUrl(state)
         };
     };
 }
