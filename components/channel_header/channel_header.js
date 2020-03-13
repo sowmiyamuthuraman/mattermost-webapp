@@ -3,8 +3,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Tooltip} from 'react-bootstrap';
+import {Tooltip, Overlay} from 'react-bootstrap';
 import {FormattedMessage, injectIntl} from 'react-intl';
+import classNames from 'classnames';
+
 import {Permissions} from 'mattermost-redux/constants';
 import {memoizeResult} from 'mattermost-redux/utils/helpers';
 import {displayUsername} from 'mattermost-redux/utils/user_utils';
@@ -66,6 +68,7 @@ class ChannelHeader extends React.PureComponent {
         isQuickSwitcherOpen: PropTypes.bool,
         intl: intlShape.isRequired,
         pinnedPostsCount: PropTypes.number,
+        hasMoreThanOneTeam: PropTypes.bool,
         actions: PropTypes.shape({
             favoriteChannel: PropTypes.func.isRequired,
             unfavoriteChannel: PropTypes.func.isRequired,
@@ -87,8 +90,10 @@ class ChannelHeader extends React.PureComponent {
     constructor(props) {
         super(props);
         this.toggleFavoriteRef = React.createRef();
+        this.headerDescriptionRef = React.createRef();
+        this.headerPopoverTextMeasurerRef = React.createRef();
 
-        this.state = {showSearchBar: ChannelHeader.getShowSearchBar(props)};
+        this.state = {showSearchBar: ChannelHeader.getShowSearchBar(props), popoverOverlayWidth: 0, showChannelHeaderPopover: false};
 
         this.getHeaderMarkdownOptions = memoizeResult((channelNamesMap) => (
             {...headerMarkdownOptions, channelNamesMap}
@@ -213,18 +218,6 @@ class ChannelHeader extends React.PureComponent {
         }
     };
 
-    handleOnMouseOver = () => {
-        if (this.refs.headerOverlay) {
-            this.refs.headerOverlay.show();
-        }
-    };
-
-    handleOnMouseOut = () => {
-        if (this.refs.headerOverlay) {
-            this.refs.headerOverlay.hide();
-        }
-    };
-
     handleQuickSwitchKeyPress = (e) => {
         if (Utils.cmdOrCtrlPressed(e) && !e.shiftKey && Utils.isKeyPressed(e, Constants.KeyCodes.K)) {
             if (!e.altKey) {
@@ -264,6 +257,21 @@ class ChannelHeader extends React.PureComponent {
         };
 
         actions.openModal(modalData);
+    }
+
+    showChannelHeaderPopover = (headerText) => {
+        const headerDescriptionRect = this.headerDescriptionRef.current.getBoundingClientRect();
+        const headerPopoverTextMeasurerRect = this.headerPopoverTextMeasurerRef.current.getBoundingClientRect();
+
+        if (headerPopoverTextMeasurerRect.width > headerDescriptionRect.width || headerText.match(/\n{2,}/g, ' ')) {
+            this.setState({showChannelHeaderPopover: true});
+        }
+    }
+
+    setPopoverOverlayWidth = () => {
+        const headerDescriptionRect = this.headerDescriptionRef.current.getBoundingClientRect();
+        const ellipsisWidthAdjustment = 10;
+        this.setState({popoverOverlayWidth: headerDescriptionRect.width + ellipsisWidthAdjustment});
     }
 
     handleFormattedTextClick = (e) => Utils.handleFormattedTextClick(e, this.props.currentRelativeTeamUrl);
@@ -427,43 +435,57 @@ class ChannelHeader extends React.PureComponent {
                     id='header-popover'
                     popoverStyle='info'
                     popoverSize='lg'
+                    style={{maxWidth: `${this.state.popoverOverlayWidth}px`}}
                     placement='bottom'
-                    className='channel-header__popover'
-                    onMouseOver={this.handleOnMouseOver}
-                    onMouseOut={this.handleOnMouseOut}
+                    className={classNames(['channel-header__popover', {'chanel-header__popover--lhs_offset': this.props.hasMoreThanOneTeam}])}
                 >
+
                     <Markdown
                         message={headerText}
                         options={this.getPopoverMarkdownOptions(channelNamesMap)}
                     />
                 </Popover>
             );
+
             headerTextContainer = (
-                <OverlayTrigger
-                    trigger={'click'}
-                    placement='bottom'
-                    rootClose={true}
-                    overlay={popoverContent}
-                    ref='headerOverlay'
+                <div
+                    id='channelHeaderDescription'
+                    className='channel-header__description'
                 >
+                    {dmHeaderIconStatus}
+                    {dmHeaderTextStatus}
+                    {hasGuestsText}
                     <div
-                        id='channelHeaderDescription'
-                        className='channel-header__description'
+                        className='header-popover-text-measurer'
+                        ref={this.headerPopoverTextMeasurerRef}
                     >
-                        {dmHeaderIconStatus}
-                        {dmHeaderTextStatus}
-                        {hasGuestsText}
-                        <span
-                            className='header-description__text'
-                            onClick={this.handleFormattedTextClick}
-                        >
-                            <Markdown
-                                message={headerText}
-                                options={this.getHeaderMarkdownOptions(channelNamesMap)}
-                            />
-                        </span>
-                    </div>
-                </OverlayTrigger>
+                        <Markdown
+                            message={headerText.replace(/\n{2,}/g, ' ')}
+                            options={this.getHeaderMarkdownOptions(channelNamesMap)}
+                        /></div>
+                    <span
+                        className='header-description__text'
+                        onClick={this.handleFormattedTextClick}
+                        onMouseOver={() => this.showChannelHeaderPopover(headerText)}
+                        onMouseOut={() => this.setState({showChannelHeaderPopover: false})}
+                        ref={this.headerDescriptionRef}
+                    >
+
+                        <Overlay
+                            show={this.state.showChannelHeaderPopover}
+                            placement='bottom'
+                            rootClose={true}
+                            target={this.headerDescriptionRef.current}
+                            ref='headerOverlay'
+                            onEnter={this.setPopoverOverlayWidth}
+                        >{popoverContent}</Overlay>
+
+                        <Markdown
+                            message={headerText}
+                            options={this.getHeaderMarkdownOptions(channelNamesMap)}
+                        />
+                    </span>
+                </div>
             );
         } else {
             let editMessage;
